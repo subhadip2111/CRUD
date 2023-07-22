@@ -38,7 +38,7 @@ window.location.reload()
             {users.map((user) => (
               <tr key={user.email}>
                 <td>{user.name}</td>
-                <td>{user.Email}</td>
+                <td>{user.email}</td>
                 <td>{user.age}</td>
                 <td>
                 <Link to={`/update/${user._id}` }className="btn btn-success">Update</Link>

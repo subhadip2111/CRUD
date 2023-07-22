@@ -10,6 +10,11 @@ const Submit=(e)=>{
 e.preventDefault()
 
 axios.post("http://localhost:3001/users",{name,email,age}).then(result=>{console.log(result)
+if(!name ||!email ||!age){
+  alert("please give all inputs")
+}
+
+
 
 navigate('/')}
 
