@@ -18,6 +18,12 @@ const UserSchema=new mongoose.Schema({
         trim: true
 
     },
+    password: {
+        type: String,
+        reuired: true,
+        trim: true
+
+    },
 })
 const UserModel=mongoose.model("users",UserSchema)
 module.exports=UserModel
