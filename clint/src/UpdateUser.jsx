@@ -9,23 +9,39 @@ const navigate=useNavigate()
 const [name,setName]=useState('')
 const [email,setEmail]=useState('')
 const [age,setAge]=useState('')
-
+const [password,setPassword]=useState('')
 useEffect(()=>{
-
   axios.get("http://localhost:3001/users/"+id)
   .then(result=>{(console.log(result))
   
     setName(result.data.name)
     setEmail(result.data.email)
     setAge(result.data.age)
+    setPassword(result.data.password)
   })
   .catch(err=>console.log(err))
-},[setName,setEmail,setAge,id])
+},[setName,setEmail,setAge,id,setPassword])
 
 const update=(e)=>{
-  e.preventDefault()
+  if(!name ||!email ||!age ||!password){
+    alert("please give  inputs for update")
+    return 
+  }
 
-  axios.put("http://localhost:3001/UpdateUsers/"+id,{name,email,age})
+  if(!/^([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)@([a-z]([-_\\.]*[a-z]+)*)[\\.]([a-z]{2,9})+$/.test(email)){
+    alert("invalid Email ")
+    return 
+  }
+  if(password.length<8){
+    alert(" !!password must be grater than 8 digit")
+    return
+  }
+if(name ||email || age || password){
+  alert("document updated successfully")
+}
+e.preventDefault()
+
+  axios.put("http://localhost:3001/UpdateUsers/"+id,{name,email,age,password})
   .then(result=>{console.log(result)
   
   navigate('/')}
@@ -53,6 +69,10 @@ const update=(e)=>{
           <label htmlFor="age">Age</label>
           <input type="text" placeholder="Enter Your Age" className="form-control" id="age" value={age} onChange={(e)=>setAge(e.target.value)}/>
         </div>
+        <div className="mb-2">
+            <label htmlFor="age">Password</label>
+            <input type="text" placeholder="Enter Your password" className="form-control" id="password" onChange={(e)=>setPassword(e.target.value)} />
+          </div>
         <button className="btn btn-success">Update</button>
       </form>
     </div>

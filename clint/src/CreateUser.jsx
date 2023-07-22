@@ -1,22 +1,35 @@
 import { useState } from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 const CreateUser = () => {
 const navigate=useNavigate()
 const [name,setName]=useState('')
 const [email,setEmail]=useState('')
 const [age,setAge]=useState('')
+const [password,setPassword]=useState('')
 const Submit=(e)=>{
-e.preventDefault()
 
-axios.post("http://localhost:3001/users",{name,email,age}).then(result=>{console.log(result)
-if(!name ||!email ||!age){
+if(!name ||!email ||!age ||!password){
   alert("please give all inputs")
+  return 
+}
+
+if(!/^([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)@([a-z]([-_\\.]*[a-z]+)*)[\\.]([a-z]{2,9})+$/.test(email)){
+  alert("invalid Email ")
+  return 
+}
+if(password.length<8){
+  alert(" !!password must be grater than 8")
 }
 
 
+e.preventDefault()
+axios.post("http://localhost:3001/users",{name,email,age,password}).then(result=>{console.log(result)
 
-navigate('/')}
+
+
+navigate('/login')}  
 
 ).catch((err)=>console.log(err))
 
@@ -38,7 +51,14 @@ navigate('/')}
             <label htmlFor="age">Age</label>
             <input type="text" placeholder="Enter Your Age" className="form-control" id="age" onChange={(e)=>setAge(e.target.value)} />
           </div>
-          <button className="btn btn-success">Submit</button>
+          <div className="mb-2">
+            <label htmlFor="age">Password</label>
+            <input type="text" placeholder="Enter Your password" className="form-control" id="password" onChange={(e)=>setPassword(e.target.value)} />
+          </div>
+          <button className="btn btn-success">Register</button>
+
+          <p>Already Have An account</p>
+          <Link to="/login"className="btn btn-default w-100 rounded-0  btn btn-outline-success"  >Login</Link>
         </form>
       </div>
     </div>
