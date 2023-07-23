@@ -9,14 +9,8 @@ const Login = () => {
     const [email,setEmail]=useState('')
     //const [age,setAge]=useState('')
     const [password,setPassword]=useState('')
+    
 
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData((prevFormData) => ({
-//       ...prevFormData,
-//       [name]: value,
-//     }));
-//   };
 
   const handleSubmit = (e) => {
    
@@ -29,7 +23,7 @@ const Login = () => {
         alert(" !!password must be grater than 8")
       }
       
-      
+    
       e.preventDefault()
 
 
