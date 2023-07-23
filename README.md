@@ -26,8 +26,8 @@ endpoints.
 b. Add pagination and sorting functionality to the user listing page.
 c. Implement search functionality to filter users based on specific criteria.
 .
-
-//========================> To start the frontend (clint) please folow  ->>cd CRUD->cd->>clint-->npm run dev and to start backend server use cd->crud-->cd -->server->npm start
+////===========================IMPLEMENT =======================>
+//====> To start the frontend (clint) please folow  ->>cd CRUD->cd->>clint-->npm run dev and to start backend server use cd->crud-->cd -->server->npm start
 Tech Stack that i have use-->(Vite+react,Bootstrap, node.js,express.js,Mongodb,bcrypt,JsonWebToken,cors etc).
-
+**---> CHECK THE USER PASSWORD AND SAVE IT IN HASING FORMATE
 

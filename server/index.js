@@ -48,9 +48,7 @@ if(!userWithEmail){
     return res.status(400).json({message:"eamil or password does not match"})
 
 }
-// if(userWithEmail.password!==password){
-//     return res.status(400).json({message:" password does not match"})  
-// }
+
 let checkPassword = await bcrypt.compare(password, userWithEmail.password)
 if (!checkPassword) return res.status(404).send({ status: false, message: "Wrong password !!" })
 
