@@ -36,36 +36,32 @@ bcrypt.hash(password,10)
 
 })
 
-//loging
+//login
  
 app.post("/users/login",async(req,res)=>{
    
-const {eamil,password}=req.body
-const options = {
-    expires: new Date(
-      Date.now() + 5 * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true,
-  };
-   await UserModel.findOne({email:eamil})
-.then(user=>{
-    if(user){
-bcrypt.compare(password,user.password,10,(err,response)=>{
-    if(response){
-const token =jwt.sign({email:user.email},"jwt-secret-key",{expiresIn:"1d"})
-    res.cookie("token",token,options)
-return res.json('success',token)
-
-}else{
-        return res.status(400).json("incorrect password")
-    }
+const {email,password}=req.body
+const userWithEmail=await UserModel.findOne({email:email}).catch((err)=>{
+    console.log("Err: ",err);
 })
+if(!userWithEmail){
+    return res.status(400).json({message:"eamil or password does not match"})
+
+}
+// if(userWithEmail.password!==password){
+//     return res.status(400).json({message:" password does not match"})  
+// }
+let checkPassword = await bcrypt.compare(password, userWithEmail.password)
+if (!checkPassword) return res.status(404).send({ status: false, message: "Wrong password !!" })
 
 
-    }else{
-        return res.status(404).json("User not found")
-    }
-})
+
+
+
+const JwtToken=jwt.sign({id:userWithEmail.id,email:userWithEmail.email},"subhadip-shee")
+
+                                                                         
+res.json({message:"Welcome Back !",token:JwtToken})
 
 })
 
